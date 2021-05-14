@@ -506,7 +506,12 @@ func (m *ListVersionsRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PackageOrn
+	if !_ListVersionsRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
+		return ListVersionsRequestValidationError{
+			field:  "PackageOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -566,6 +571,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListVersionsRequestValidationError{}
+
+var _ListVersionsRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
 
 // Validate checks the field values on ListVersionsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -657,7 +664,12 @@ func (m *GetVersionRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for VersionOrn
+	if !_GetVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
+		return GetVersionRequestValidationError{
+			field:  "VersionOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -717,6 +729,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetVersionRequestValidationError{}
+
+var _GetVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on GetVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
