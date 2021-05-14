@@ -41,6 +41,13 @@ func (m *ListPackagesRequest) Validate() error {
 		return nil
 	}
 
+	if !_ListPackagesRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
+		return ListPackagesRequestValidationError{
+			field:  "ApplicationOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
+		}
+	}
+
 	return nil
 }
 
@@ -99,6 +106,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListPackagesRequestValidationError{}
+
+var _ListPackagesRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
 
 // Validate checks the field values on ListPackagesResponse with the rules
 // defined in the proto definition for this message. If any rules are
