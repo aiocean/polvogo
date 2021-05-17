@@ -21,7 +21,7 @@ type PolvoServiceClient interface {
 	CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (*CreatePackageResponse, error)
 	UpdatePackage(ctx context.Context, in *UpdatePackageRequest, opts ...grpc.CallOption) (*UpdatePackageResponse, error)
 	GetPackage(ctx context.Context, in *GetPackageRequest, opts ...grpc.CallOption) (*GetPackageResponse, error)
-	ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (*ListPackagesResponse, error)
+	ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (PolvoService_ListPackagesClient, error)
 	ListVersions(ctx context.Context, in *ListVersionsRequest, opts ...grpc.CallOption) (*ListVersionsResponse, error)
 	CreateVersion(ctx context.Context, in *CreateVersionRequest, opts ...grpc.CallOption) (*CreateVersionResponse, error)
 	UpdateVersion(ctx context.Context, in *UpdateVersionRequest, opts ...grpc.CallOption) (*UpdateVersionResponse, error)
@@ -67,13 +67,36 @@ func (c *polvoServiceClient) GetPackage(ctx context.Context, in *GetPackageReque
 	return out, nil
 }
 
-func (c *polvoServiceClient) ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (*ListPackagesResponse, error) {
-	out := new(ListPackagesResponse)
-	err := c.cc.Invoke(ctx, "/aiocean.polvo.v1.PolvoService/ListPackages", in, out, opts...)
+func (c *polvoServiceClient) ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (PolvoService_ListPackagesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[0], "/aiocean.polvo.v1.PolvoService/ListPackages", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &polvoServiceListPackagesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type PolvoService_ListPackagesClient interface {
+	Recv() (*ListPackagesResponse, error)
+	grpc.ClientStream
+}
+
+type polvoServiceListPackagesClient struct {
+	grpc.ClientStream
+}
+
+func (x *polvoServiceListPackagesClient) Recv() (*ListPackagesResponse, error) {
+	m := new(ListPackagesResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func (c *polvoServiceClient) ListVersions(ctx context.Context, in *ListVersionsRequest, opts ...grpc.CallOption) (*ListVersionsResponse, error) {
@@ -155,7 +178,7 @@ type PolvoServiceServer interface {
 	CreatePackage(context.Context, *CreatePackageRequest) (*CreatePackageResponse, error)
 	UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error)
 	GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error)
-	ListPackages(context.Context, *ListPackagesRequest) (*ListPackagesResponse, error)
+	ListPackages(*ListPackagesRequest, PolvoService_ListPackagesServer) error
 	ListVersions(context.Context, *ListVersionsRequest) (*ListVersionsResponse, error)
 	CreateVersion(context.Context, *CreateVersionRequest) (*CreateVersionResponse, error)
 	UpdateVersion(context.Context, *UpdateVersionRequest) (*UpdateVersionResponse, error)
@@ -180,8 +203,8 @@ func (UnimplementedPolvoServiceServer) UpdatePackage(context.Context, *UpdatePac
 func (UnimplementedPolvoServiceServer) GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPackage not implemented")
 }
-func (UnimplementedPolvoServiceServer) ListPackages(context.Context, *ListPackagesRequest) (*ListPackagesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListPackages not implemented")
+func (UnimplementedPolvoServiceServer) ListPackages(*ListPackagesRequest, PolvoService_ListPackagesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ListPackages not implemented")
 }
 func (UnimplementedPolvoServiceServer) ListVersions(context.Context, *ListVersionsRequest) (*ListVersionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListVersions not implemented")
@@ -274,22 +297,25 @@ func _PolvoService_GetPackage_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PolvoService_ListPackages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListPackagesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _PolvoService_ListPackages_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ListPackagesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(PolvoServiceServer).ListPackages(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/aiocean.polvo.v1.PolvoService/ListPackages",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolvoServiceServer).ListPackages(ctx, req.(*ListPackagesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(PolvoServiceServer).ListPackages(m, &polvoServiceListPackagesServer{stream})
+}
+
+type PolvoService_ListPackagesServer interface {
+	Send(*ListPackagesResponse) error
+	grpc.ServerStream
+}
+
+type polvoServiceListPackagesServer struct {
+	grpc.ServerStream
+}
+
+func (x *polvoServiceListPackagesServer) Send(m *ListPackagesResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _PolvoService_ListVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -456,10 +482,6 @@ var PolvoService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PolvoService_GetPackage_Handler,
 		},
 		{
-			MethodName: "ListPackages",
-			Handler:    _PolvoService_ListPackages_Handler,
-		},
-		{
 			MethodName: "ListVersions",
 			Handler:    _PolvoService_ListVersions_Handler,
 		},
@@ -492,6 +514,12 @@ var PolvoService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PolvoService_GetBuild_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ListPackages",
+			Handler:       _PolvoService_ListPackages_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "aiocean/polvo/v1/polvo_service.proto",
 }

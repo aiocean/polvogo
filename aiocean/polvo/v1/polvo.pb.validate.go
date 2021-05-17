@@ -49,6 +49,10 @@ func (m *Package) Validate() error {
 
 	// no validation rules for DisplayName
 
+	// no validation rules for Status
+
+	// no validation rules for Maintainer
+
 	return nil
 }
 
