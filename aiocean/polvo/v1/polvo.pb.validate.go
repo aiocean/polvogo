@@ -47,9 +47,19 @@ func (m *Package) Validate() error {
 		}
 	}
 
-	// no validation rules for DisplayName
+	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
+		return PackageValidationError{
+			field:  "DisplayName",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
-	// no validation rules for Status
+	if _, ok := Package_Status_name[int32(m.GetStatus())]; !ok {
+		return PackageValidationError{
+			field:  "Status",
+			reason: "value must be one of the defined enum values",
+		}
+	}
 
 	// no validation rules for Maintainer
 
@@ -126,7 +136,12 @@ func (m *Version) Validate() error {
 		}
 	}
 
-	// no validation rules for DisplayName
+	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
+		return VersionValidationError{
+			field:  "DisplayName",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
 	if !_Version_EntryPointUrl_Pattern.MatchString(m.GetEntryPointUrl()) {
 		return VersionValidationError{
@@ -218,9 +233,19 @@ func (m *Module) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		return ModuleValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
-	// no validation rules for Path
+	if utf8.RuneCountInString(m.GetPath()) < 1 {
+		return ModuleValidationError{
+			field:  "Path",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
 	return nil
 }
@@ -293,7 +318,12 @@ func (m *Build) Validate() error {
 		}
 	}
 
-	// no validation rules for Status
+	if _, ok := Build_Status_name[int32(m.GetStatus())]; !ok {
+		return BuildValidationError{
+			field:  "Status",
+			reason: "value must be one of the defined enum values",
+		}
+	}
 
 	return nil
 }
