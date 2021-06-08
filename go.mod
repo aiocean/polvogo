@@ -1,4 +1,4 @@
-module pkg.aiocean.dev/protogo
+module pkg.aiocean.dev/polvogo
 
 go 1.16
 
