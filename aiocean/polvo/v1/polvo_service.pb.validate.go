@@ -33,16 +33,16 @@ var (
 	_ = anypb.Any{}
 )
 
-// Validate checks the field values on GetWeightedVersionRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on GetPackageEntryPointRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetWeightedVersionRequest) Validate() error {
+func (m *GetPackageEntryPointRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if !_GetWeightedVersionRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return GetWeightedVersionRequestValidationError{
+	if !_GetPackageEntryPointRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
+		return GetPackageEntryPointRequestValidationError{
 			field:  "PackageOrn",
 			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
 		}
@@ -51,9 +51,10 @@ func (m *GetWeightedVersionRequest) Validate() error {
 	return nil
 }
 
-// GetWeightedVersionRequestValidationError is the validation error returned by
-// GetWeightedVersionRequest.Validate if the designated constraints aren't met.
-type GetWeightedVersionRequestValidationError struct {
+// GetPackageEntryPointRequestValidationError is the validation error returned
+// by GetPackageEntryPointRequest.Validate if the designated constraints
+// aren't met.
+type GetPackageEntryPointRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -61,24 +62,24 @@ type GetWeightedVersionRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetWeightedVersionRequestValidationError) Field() string { return e.field }
+func (e GetPackageEntryPointRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetWeightedVersionRequestValidationError) Reason() string { return e.reason }
+func (e GetPackageEntryPointRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetWeightedVersionRequestValidationError) Cause() error { return e.cause }
+func (e GetPackageEntryPointRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetWeightedVersionRequestValidationError) Key() bool { return e.key }
+func (e GetPackageEntryPointRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetWeightedVersionRequestValidationError) ErrorName() string {
-	return "GetWeightedVersionRequestValidationError"
+func (e GetPackageEntryPointRequestValidationError) ErrorName() string {
+	return "GetPackageEntryPointRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetWeightedVersionRequestValidationError) Error() string {
+func (e GetPackageEntryPointRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -90,14 +91,14 @@ func (e GetWeightedVersionRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetWeightedVersionRequest.%s: %s%s",
+		"invalid %sGetPackageEntryPointRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetWeightedVersionRequestValidationError{}
+var _ error = GetPackageEntryPointRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -105,34 +106,27 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetWeightedVersionRequestValidationError{}
+} = GetPackageEntryPointRequestValidationError{}
 
-var _GetWeightedVersionRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+var _GetPackageEntryPointRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
 
-// Validate checks the field values on GetWeightedVersionResponse with the
+// Validate checks the field values on GetPackageEntryPointResponse with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetWeightedVersionResponse) Validate() error {
+func (m *GetPackageEntryPointResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetVersion()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetWeightedVersionResponseValidationError{
-				field:  "Version",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for EntryPointUrl
 
 	return nil
 }
 
-// GetWeightedVersionResponseValidationError is the validation error returned
-// by GetWeightedVersionResponse.Validate if the designated constraints aren't met.
-type GetWeightedVersionResponseValidationError struct {
+// GetPackageEntryPointResponseValidationError is the validation error returned
+// by GetPackageEntryPointResponse.Validate if the designated constraints
+// aren't met.
+type GetPackageEntryPointResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -140,24 +134,24 @@ type GetWeightedVersionResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetWeightedVersionResponseValidationError) Field() string { return e.field }
+func (e GetPackageEntryPointResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetWeightedVersionResponseValidationError) Reason() string { return e.reason }
+func (e GetPackageEntryPointResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetWeightedVersionResponseValidationError) Cause() error { return e.cause }
+func (e GetPackageEntryPointResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetWeightedVersionResponseValidationError) Key() bool { return e.key }
+func (e GetPackageEntryPointResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetWeightedVersionResponseValidationError) ErrorName() string {
-	return "GetWeightedVersionResponseValidationError"
+func (e GetPackageEntryPointResponseValidationError) ErrorName() string {
+	return "GetPackageEntryPointResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetWeightedVersionResponseValidationError) Error() string {
+func (e GetPackageEntryPointResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -169,14 +163,14 @@ func (e GetWeightedVersionResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetWeightedVersionResponse.%s: %s%s",
+		"invalid %sGetPackageEntryPointResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetWeightedVersionResponseValidationError{}
+var _ error = GetPackageEntryPointResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -184,7 +178,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetWeightedVersionResponseValidationError{}
+} = GetPackageEntryPointResponseValidationError{}
 
 // Validate checks the field values on DeletePackageRequest with the rules
 // defined in the proto definition for this message. If any rules are
