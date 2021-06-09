@@ -33,6 +33,159 @@ var (
 	_ = anypb.Any{}
 )
 
+// Validate checks the field values on GetWeightedVersionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetWeightedVersionRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if !_GetWeightedVersionRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
+		return GetWeightedVersionRequestValidationError{
+			field:  "PackageOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+		}
+	}
+
+	return nil
+}
+
+// GetWeightedVersionRequestValidationError is the validation error returned by
+// GetWeightedVersionRequest.Validate if the designated constraints aren't met.
+type GetWeightedVersionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetWeightedVersionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetWeightedVersionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetWeightedVersionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetWeightedVersionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetWeightedVersionRequestValidationError) ErrorName() string {
+	return "GetWeightedVersionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetWeightedVersionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetWeightedVersionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetWeightedVersionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetWeightedVersionRequestValidationError{}
+
+var _GetWeightedVersionRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+
+// Validate checks the field values on GetWeightedVersionResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetWeightedVersionResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetVersion()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetWeightedVersionResponseValidationError{
+				field:  "Version",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// GetWeightedVersionResponseValidationError is the validation error returned
+// by GetWeightedVersionResponse.Validate if the designated constraints aren't met.
+type GetWeightedVersionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetWeightedVersionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetWeightedVersionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetWeightedVersionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetWeightedVersionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetWeightedVersionResponseValidationError) ErrorName() string {
+	return "GetWeightedVersionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetWeightedVersionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetWeightedVersionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetWeightedVersionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetWeightedVersionResponseValidationError{}
+
 // Validate checks the field values on DeletePackageRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

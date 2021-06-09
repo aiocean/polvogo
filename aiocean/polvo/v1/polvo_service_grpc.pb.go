@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type PolvoServiceClient interface {
 	CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (PolvoService_CreatePackageClient, error)
 	UpdatePackage(ctx context.Context, in *UpdatePackageRequest, opts ...grpc.CallOption) (*UpdatePackageResponse, error)
+	GetWeightedVersion(ctx context.Context, in *GetWeightedVersionRequest, opts ...grpc.CallOption) (*GetWeightedVersionResponse, error)
 	GetPackage(ctx context.Context, in *GetPackageRequest, opts ...grpc.CallOption) (*GetPackageResponse, error)
 	ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (PolvoService_ListPackagesClient, error)
 	DeletePackage(ctx context.Context, in *DeletePackageRequest, opts ...grpc.CallOption) (PolvoService_DeletePackageClient, error)
@@ -73,6 +74,15 @@ func (x *polvoServiceCreatePackageClient) Recv() (*CreatePackageResponse, error)
 func (c *polvoServiceClient) UpdatePackage(ctx context.Context, in *UpdatePackageRequest, opts ...grpc.CallOption) (*UpdatePackageResponse, error) {
 	out := new(UpdatePackageResponse)
 	err := c.cc.Invoke(ctx, "/aiocean.polvo.v1.PolvoService/UpdatePackage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *polvoServiceClient) GetWeightedVersion(ctx context.Context, in *GetWeightedVersionRequest, opts ...grpc.CallOption) (*GetWeightedVersionResponse, error) {
+	out := new(GetWeightedVersionResponse)
+	err := c.cc.Invoke(ctx, "/aiocean.polvo.v1.PolvoService/GetWeightedVersion", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -249,6 +259,7 @@ func (c *polvoServiceClient) GetVersion(ctx context.Context, in *GetVersionReque
 type PolvoServiceServer interface {
 	CreatePackage(*CreatePackageRequest, PolvoService_CreatePackageServer) error
 	UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error)
+	GetWeightedVersion(context.Context, *GetWeightedVersionRequest) (*GetWeightedVersionResponse, error)
 	GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error)
 	ListPackages(*ListPackagesRequest, PolvoService_ListPackagesServer) error
 	DeletePackage(*DeletePackageRequest, PolvoService_DeletePackageServer) error
@@ -269,6 +280,9 @@ func (UnimplementedPolvoServiceServer) CreatePackage(*CreatePackageRequest, Polv
 }
 func (UnimplementedPolvoServiceServer) UpdatePackage(context.Context, *UpdatePackageRequest) (*UpdatePackageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePackage not implemented")
+}
+func (UnimplementedPolvoServiceServer) GetWeightedVersion(context.Context, *GetWeightedVersionRequest) (*GetWeightedVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWeightedVersion not implemented")
 }
 func (UnimplementedPolvoServiceServer) GetPackage(context.Context, *GetPackageRequest) (*GetPackageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPackage not implemented")
@@ -342,6 +356,24 @@ func _PolvoService_UpdatePackage_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PolvoServiceServer).UpdatePackage(ctx, req.(*UpdatePackageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PolvoService_GetWeightedVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWeightedVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PolvoServiceServer).GetWeightedVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aiocean.polvo.v1.PolvoService/GetWeightedVersion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PolvoServiceServer).GetWeightedVersion(ctx, req.(*GetWeightedVersionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -512,6 +544,10 @@ var PolvoService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdatePackage",
 			Handler:    _PolvoService_UpdatePackage_Handler,
+		},
+		{
+			MethodName: "GetWeightedVersion",
+			Handler:    _PolvoService_GetWeightedVersion_Handler,
 		},
 		{
 			MethodName: "GetPackage",
