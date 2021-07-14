@@ -18,6 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PolvoServiceClient interface {
+	CreateApplication(ctx context.Context, in *CreateApplicationRequest, opts ...grpc.CallOption) (PolvoService_CreateApplicationClient, error)
+	UpdateApplication(ctx context.Context, in *UpdateApplicationRequest, opts ...grpc.CallOption) (PolvoService_UpdateApplicationClient, error)
+	DeleteApplication(ctx context.Context, in *DeleteApplicationRequest, opts ...grpc.CallOption) (PolvoService_DeleteApplicationClient, error)
 	UpdateConfig(ctx context.Context, in *UpdateConfigRequest, opts ...grpc.CallOption) (PolvoService_UpdateConfigClient, error)
 	GetConfig(ctx context.Context, in *GetConfigRequest, opts ...grpc.CallOption) (*GetConfigResponse, error)
 	CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (PolvoService_CreatePackageClient, error)
@@ -41,8 +44,104 @@ func NewPolvoServiceClient(cc grpc.ClientConnInterface) PolvoServiceClient {
 	return &polvoServiceClient{cc}
 }
 
+func (c *polvoServiceClient) CreateApplication(ctx context.Context, in *CreateApplicationRequest, opts ...grpc.CallOption) (PolvoService_CreateApplicationClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[0], "/aiocean.polvo.v1.PolvoService/CreateApplication", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &polvoServiceCreateApplicationClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type PolvoService_CreateApplicationClient interface {
+	Recv() (*CreateApplicationResponse, error)
+	grpc.ClientStream
+}
+
+type polvoServiceCreateApplicationClient struct {
+	grpc.ClientStream
+}
+
+func (x *polvoServiceCreateApplicationClient) Recv() (*CreateApplicationResponse, error) {
+	m := new(CreateApplicationResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *polvoServiceClient) UpdateApplication(ctx context.Context, in *UpdateApplicationRequest, opts ...grpc.CallOption) (PolvoService_UpdateApplicationClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[1], "/aiocean.polvo.v1.PolvoService/UpdateApplication", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &polvoServiceUpdateApplicationClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type PolvoService_UpdateApplicationClient interface {
+	Recv() (*UpdateApplicationResponse, error)
+	grpc.ClientStream
+}
+
+type polvoServiceUpdateApplicationClient struct {
+	grpc.ClientStream
+}
+
+func (x *polvoServiceUpdateApplicationClient) Recv() (*UpdateApplicationResponse, error) {
+	m := new(UpdateApplicationResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *polvoServiceClient) DeleteApplication(ctx context.Context, in *DeleteApplicationRequest, opts ...grpc.CallOption) (PolvoService_DeleteApplicationClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[2], "/aiocean.polvo.v1.PolvoService/DeleteApplication", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &polvoServiceDeleteApplicationClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type PolvoService_DeleteApplicationClient interface {
+	Recv() (*DeleteApplicationResponse, error)
+	grpc.ClientStream
+}
+
+type polvoServiceDeleteApplicationClient struct {
+	grpc.ClientStream
+}
+
+func (x *polvoServiceDeleteApplicationClient) Recv() (*DeleteApplicationResponse, error) {
+	m := new(DeleteApplicationResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *polvoServiceClient) UpdateConfig(ctx context.Context, in *UpdateConfigRequest, opts ...grpc.CallOption) (PolvoService_UpdateConfigClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[0], "/aiocean.polvo.v1.PolvoService/UpdateConfig", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[3], "/aiocean.polvo.v1.PolvoService/UpdateConfig", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +182,7 @@ func (c *polvoServiceClient) GetConfig(ctx context.Context, in *GetConfigRequest
 }
 
 func (c *polvoServiceClient) CreatePackage(ctx context.Context, in *CreatePackageRequest, opts ...grpc.CallOption) (PolvoService_CreatePackageClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[1], "/aiocean.polvo.v1.PolvoService/CreatePackage", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[4], "/aiocean.polvo.v1.PolvoService/CreatePackage", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +241,7 @@ func (c *polvoServiceClient) GetPackageEntryPoint(ctx context.Context, in *GetPa
 }
 
 func (c *polvoServiceClient) ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (PolvoService_ListPackagesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[2], "/aiocean.polvo.v1.PolvoService/ListPackages", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[5], "/aiocean.polvo.v1.PolvoService/ListPackages", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +273,7 @@ func (x *polvoServiceListPackagesClient) Recv() (*ListPackagesResponse, error) {
 }
 
 func (c *polvoServiceClient) DeletePackage(ctx context.Context, in *DeletePackageRequest, opts ...grpc.CallOption) (PolvoService_DeletePackageClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[3], "/aiocean.polvo.v1.PolvoService/DeletePackage", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[6], "/aiocean.polvo.v1.PolvoService/DeletePackage", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +305,7 @@ func (x *polvoServiceDeletePackageClient) Recv() (*DeletePackageResponse, error)
 }
 
 func (c *polvoServiceClient) ListVersions(ctx context.Context, in *ListVersionsRequest, opts ...grpc.CallOption) (PolvoService_ListVersionsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[4], "/aiocean.polvo.v1.PolvoService/ListVersions", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[7], "/aiocean.polvo.v1.PolvoService/ListVersions", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +355,7 @@ func (c *polvoServiceClient) UpdateVersion(ctx context.Context, in *UpdateVersio
 }
 
 func (c *polvoServiceClient) DeleteVersion(ctx context.Context, in *DeleteVersionRequest, opts ...grpc.CallOption) (PolvoService_DeleteVersionClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[5], "/aiocean.polvo.v1.PolvoService/DeleteVersion", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[8], "/aiocean.polvo.v1.PolvoService/DeleteVersion", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -300,6 +399,9 @@ func (c *polvoServiceClient) GetVersion(ctx context.Context, in *GetVersionReque
 // All implementations must embed UnimplementedPolvoServiceServer
 // for forward compatibility
 type PolvoServiceServer interface {
+	CreateApplication(*CreateApplicationRequest, PolvoService_CreateApplicationServer) error
+	UpdateApplication(*UpdateApplicationRequest, PolvoService_UpdateApplicationServer) error
+	DeleteApplication(*DeleteApplicationRequest, PolvoService_DeleteApplicationServer) error
 	UpdateConfig(*UpdateConfigRequest, PolvoService_UpdateConfigServer) error
 	GetConfig(context.Context, *GetConfigRequest) (*GetConfigResponse, error)
 	CreatePackage(*CreatePackageRequest, PolvoService_CreatePackageServer) error
@@ -320,6 +422,15 @@ type PolvoServiceServer interface {
 type UnimplementedPolvoServiceServer struct {
 }
 
+func (UnimplementedPolvoServiceServer) CreateApplication(*CreateApplicationRequest, PolvoService_CreateApplicationServer) error {
+	return status.Errorf(codes.Unimplemented, "method CreateApplication not implemented")
+}
+func (UnimplementedPolvoServiceServer) UpdateApplication(*UpdateApplicationRequest, PolvoService_UpdateApplicationServer) error {
+	return status.Errorf(codes.Unimplemented, "method UpdateApplication not implemented")
+}
+func (UnimplementedPolvoServiceServer) DeleteApplication(*DeleteApplicationRequest, PolvoService_DeleteApplicationServer) error {
+	return status.Errorf(codes.Unimplemented, "method DeleteApplication not implemented")
+}
 func (UnimplementedPolvoServiceServer) UpdateConfig(*UpdateConfigRequest, PolvoService_UpdateConfigServer) error {
 	return status.Errorf(codes.Unimplemented, "method UpdateConfig not implemented")
 }
@@ -370,6 +481,69 @@ type UnsafePolvoServiceServer interface {
 
 func RegisterPolvoServiceServer(s grpc.ServiceRegistrar, srv PolvoServiceServer) {
 	s.RegisterService(&PolvoService_ServiceDesc, srv)
+}
+
+func _PolvoService_CreateApplication_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CreateApplicationRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(PolvoServiceServer).CreateApplication(m, &polvoServiceCreateApplicationServer{stream})
+}
+
+type PolvoService_CreateApplicationServer interface {
+	Send(*CreateApplicationResponse) error
+	grpc.ServerStream
+}
+
+type polvoServiceCreateApplicationServer struct {
+	grpc.ServerStream
+}
+
+func (x *polvoServiceCreateApplicationServer) Send(m *CreateApplicationResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _PolvoService_UpdateApplication_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(UpdateApplicationRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(PolvoServiceServer).UpdateApplication(m, &polvoServiceUpdateApplicationServer{stream})
+}
+
+type PolvoService_UpdateApplicationServer interface {
+	Send(*UpdateApplicationResponse) error
+	grpc.ServerStream
+}
+
+type polvoServiceUpdateApplicationServer struct {
+	grpc.ServerStream
+}
+
+func (x *polvoServiceUpdateApplicationServer) Send(m *UpdateApplicationResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _PolvoService_DeleteApplication_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DeleteApplicationRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(PolvoServiceServer).DeleteApplication(m, &polvoServiceDeleteApplicationServer{stream})
+}
+
+type PolvoService_DeleteApplicationServer interface {
+	Send(*DeleteApplicationResponse) error
+	grpc.ServerStream
+}
+
+type polvoServiceDeleteApplicationServer struct {
+	grpc.ServerStream
+}
+
+func (x *polvoServiceDeleteApplicationServer) Send(m *DeleteApplicationResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _PolvoService_UpdateConfig_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -661,6 +835,21 @@ var PolvoService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "CreateApplication",
+			Handler:       _PolvoService_CreateApplication_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "UpdateApplication",
+			Handler:       _PolvoService_UpdateApplication_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "DeleteApplication",
+			Handler:       _PolvoService_DeleteApplication_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "UpdateConfig",
 			Handler:       _PolvoService_UpdateConfig_Handler,

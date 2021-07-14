@@ -33,6 +33,112 @@ var (
 	_ = anypb.Any{}
 )
 
+// Validate checks the field values on Application with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *Application) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if !_Application_Orn_Pattern.MatchString(m.GetOrn()) {
+		return ApplicationValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
+		return ApplicationValidationError{
+			field:  "DisplayName",
+			reason: "value length must be at least 1 runes",
+		}
+	}
+
+	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplicationValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetPackages() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplicationValidationError{
+					field:  fmt.Sprintf("Packages[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ApplicationValidationError is the validation error returned by
+// Application.Validate if the designated constraints aren't met.
+type ApplicationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationValidationError) ErrorName() string { return "ApplicationValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApplicationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplication.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationValidationError{}
+
+var _Application_Orn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
+
 // Validate checks the field values on Config with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Config) Validate() error {
@@ -45,23 +151,6 @@ func (m *Config) Validate() error {
 			field:  "Orn",
 			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
 		}
-	}
-
-	for key, val := range m.GetEnabledPackages() {
-		_ = val
-
-		// no validation rules for EnabledPackages[key]
-
-		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ConfigValidationError{
-					field:  fmt.Sprintf("EnabledPackages[%v]", key),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
 	}
 
 	if utf8.RuneCountInString(m.GetMeta()) < 1 {
