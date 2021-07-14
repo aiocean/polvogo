@@ -33,6 +33,482 @@ var (
 	_ = anypb.Any{}
 )
 
+// Validate checks the field values on GetConfigRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *GetConfigRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if !_GetConfigRequest_ConfigOrn_Pattern.MatchString(m.GetConfigOrn()) {
+		return GetConfigRequestValidationError{
+			field:  "ConfigOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
+		}
+	}
+
+	return nil
+}
+
+// GetConfigRequestValidationError is the validation error returned by
+// GetConfigRequest.Validate if the designated constraints aren't met.
+type GetConfigRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetConfigRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetConfigRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetConfigRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetConfigRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetConfigRequestValidationError) ErrorName() string { return "GetConfigRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetConfigRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetConfigRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetConfigRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetConfigRequestValidationError{}
+
+var _GetConfigRequest_ConfigOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
+
+// Validate checks the field values on GetConfigResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *GetConfigResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetConfigResponseValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// GetConfigResponseValidationError is the validation error returned by
+// GetConfigResponse.Validate if the designated constraints aren't met.
+type GetConfigResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetConfigResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetConfigResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetConfigResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetConfigResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetConfigResponseValidationError) ErrorName() string {
+	return "GetConfigResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetConfigResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetConfigResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetConfigResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetConfigResponseValidationError{}
+
+// Validate checks the field values on DeleteConfigRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteConfigRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if !_DeleteConfigRequest_ConfigOrn_Pattern.MatchString(m.GetConfigOrn()) {
+		return DeleteConfigRequestValidationError{
+			field:  "ConfigOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
+		}
+	}
+
+	return nil
+}
+
+// DeleteConfigRequestValidationError is the validation error returned by
+// DeleteConfigRequest.Validate if the designated constraints aren't met.
+type DeleteConfigRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteConfigRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteConfigRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteConfigRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteConfigRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteConfigRequestValidationError) ErrorName() string {
+	return "DeleteConfigRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteConfigRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteConfigRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteConfigRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteConfigRequestValidationError{}
+
+var _DeleteConfigRequest_ConfigOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
+
+// Validate checks the field values on DeleteConfigResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteConfigResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Message
+
+	return nil
+}
+
+// DeleteConfigResponseValidationError is the validation error returned by
+// DeleteConfigResponse.Validate if the designated constraints aren't met.
+type DeleteConfigResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteConfigResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteConfigResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteConfigResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteConfigResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteConfigResponseValidationError) ErrorName() string {
+	return "DeleteConfigResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteConfigResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteConfigResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteConfigResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteConfigResponseValidationError{}
+
+// Validate checks the field values on UpdateConfigRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateConfigRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetConfig() == nil {
+		return UpdateConfigRequestValidationError{
+			field:  "Config",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateConfigRequestValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetUpdateMask() == nil {
+		return UpdateConfigRequestValidationError{
+			field:  "UpdateMask",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateConfigRequestValidationError{
+				field:  "UpdateMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// UpdateConfigRequestValidationError is the validation error returned by
+// UpdateConfigRequest.Validate if the designated constraints aren't met.
+type UpdateConfigRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateConfigRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateConfigRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateConfigRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateConfigRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateConfigRequestValidationError) ErrorName() string {
+	return "UpdateConfigRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateConfigRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateConfigRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateConfigRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateConfigRequestValidationError{}
+
+// Validate checks the field values on UpdateConfigResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateConfigResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateConfigResponseValidationError{
+				field:  "Config",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Message
+
+	return nil
+}
+
+// UpdateConfigResponseValidationError is the validation error returned by
+// UpdateConfigResponse.Validate if the designated constraints aren't met.
+type UpdateConfigResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateConfigResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateConfigResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateConfigResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateConfigResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateConfigResponseValidationError) ErrorName() string {
+	return "UpdateConfigResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateConfigResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateConfigResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateConfigResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateConfigResponseValidationError{}
+
 // Validate checks the field values on GetPackageEntryPointRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

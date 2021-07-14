@@ -33,6 +33,103 @@ var (
 	_ = anypb.Any{}
 )
 
+// Validate checks the field values on Config with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Config) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if !_Config_Orn_Pattern.MatchString(m.GetOrn()) {
+		return ConfigValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
+		}
+	}
+
+	for key, val := range m.GetEnabledPackages() {
+		_ = val
+
+		// no validation rules for EnabledPackages[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ConfigValidationError{
+					field:  fmt.Sprintf("EnabledPackages[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if utf8.RuneCountInString(m.GetMeta()) < 1 {
+		return ConfigValidationError{
+			field:  "Meta",
+			reason: "value length must be at least 1 runes",
+		}
+	}
+
+	return nil
+}
+
+// ConfigValidationError is the validation error returned by Config.Validate if
+// the designated constraints aren't met.
+type ConfigValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConfigValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConfigValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConfigValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConfigValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConfigValidationError) ErrorName() string { return "ConfigValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ConfigValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConfig.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConfigValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConfigValidationError{}
+
+var _Config_Orn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
+
 // Validate checks the field values on Package with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Package) Validate() error {
