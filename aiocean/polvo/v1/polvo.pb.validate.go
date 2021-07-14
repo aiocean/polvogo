@@ -41,12 +41,7 @@ func (m *Application) Validate() error {
 		return nil
 	}
 
-	if !_Application_Orn_Pattern.MatchString(m.GetOrn()) {
-		return ApplicationValidationError{
-			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
 		return ApplicationValidationError{
@@ -137,8 +132,6 @@ var _ interface {
 	ErrorName() string
 } = ApplicationValidationError{}
 
-var _Application_Orn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
-
 // Validate checks the field values on Config with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Config) Validate() error {
@@ -146,12 +139,7 @@ func (m *Config) Validate() error {
 		return nil
 	}
 
-	if !_Config_Orn_Pattern.MatchString(m.GetOrn()) {
-		return ConfigValidationError{
-			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	if utf8.RuneCountInString(m.GetMeta()) < 1 {
 		return ConfigValidationError{
@@ -217,8 +205,6 @@ var _ interface {
 	ErrorName() string
 } = ConfigValidationError{}
 
-var _Config_Orn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
-
 // Validate checks the field values on Package with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Package) Validate() error {
@@ -226,12 +212,7 @@ func (m *Package) Validate() error {
 		return nil
 	}
 
-	if !_Package_Orn_Pattern.MatchString(m.GetOrn()) {
-		return PackageValidationError{
-			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
 		return PackageValidationError{
@@ -362,8 +343,6 @@ var _ interface {
 	ErrorName() string
 } = PackageValidationError{}
 
-var _Package_Orn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
-
 // Validate checks the field values on Version with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Version) Validate() error {
@@ -371,12 +350,7 @@ func (m *Version) Validate() error {
 		return nil
 	}
 
-	if !_Version_Orn_Pattern.MatchString(m.GetOrn()) {
-		return VersionValidationError{
-			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	if m.GetDisplayName() != "" {
 
@@ -498,14 +472,14 @@ var _ interface {
 	ErrorName() string
 } = VersionValidationError{}
 
-var _Version_Orn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$")
-
 // Validate checks the field values on Module with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Module) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	// no validation rules for Uid
 
 	if utf8.RuneCountInString(m.GetName()) < 1 {
 		return ModuleValidationError{

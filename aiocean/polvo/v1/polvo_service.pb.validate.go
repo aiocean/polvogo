@@ -333,6 +333,13 @@ func (m *UpdateApplicationRequest) Validate() error {
 		return nil
 	}
 
+	if !_UpdateApplicationRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
+		return UpdateApplicationRequestValidationError{
+			field:  "ApplicationOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
+		}
+	}
+
 	if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return UpdateApplicationRequestValidationError{
@@ -418,6 +425,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateApplicationRequestValidationError{}
+
+var _UpdateApplicationRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
 
 // Validate checks the field values on UpdateApplicationResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -800,6 +809,13 @@ func (m *UpdateConfigRequest) Validate() error {
 		return nil
 	}
 
+	if !_UpdateConfigRequest_ConfigOrn_Pattern.MatchString(m.GetConfigOrn()) {
+		return UpdateConfigRequestValidationError{
+			field:  "ConfigOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
+		}
+	}
+
 	if m.GetConfig() == nil {
 		return UpdateConfigRequestValidationError{
 			field:  "Config",
@@ -892,6 +908,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateConfigRequestValidationError{}
+
+var _UpdateConfigRequest_ConfigOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
 
 // Validate checks the field values on UpdateConfigResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2204,7 +2222,12 @@ func (m *UpdatePackageRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PackageOrn
+	if !_UpdatePackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
+		return UpdatePackageRequestValidationError{
+			field:  "PackageOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+		}
+	}
 
 	if m.GetPackage() == nil {
 		return UpdatePackageRequestValidationError{
@@ -2299,6 +2322,8 @@ var _ interface {
 	ErrorName() string
 } = UpdatePackageRequestValidationError{}
 
+var _UpdatePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+
 // Validate checks the field values on UpdatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -2384,6 +2409,13 @@ var _ interface {
 func (m *UpdateVersionRequest) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if !_UpdateVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
+		return UpdateVersionRequestValidationError{
+			field:  "VersionOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$\"",
+		}
 	}
 
 	if m.GetVersion() == nil {
@@ -2478,6 +2510,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateVersionRequestValidationError{}
+
+var _UpdateVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionRequest with the rules
 // defined in the proto definition for this message. If any rules are
