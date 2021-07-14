@@ -1601,6 +1601,13 @@ func (m *CreatePackageRequest) Validate() error {
 		return nil
 	}
 
+	if !_CreatePackageRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
+		return CreatePackageRequestValidationError{
+			field:  "ApplicationOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
+		}
+	}
+
 	if v, ok := interface{}(m.GetPackage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreatePackageRequestValidationError{
@@ -1669,6 +1676,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreatePackageRequestValidationError{}
+
+var _CreatePackageRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
 
 // Validate checks the field values on CreatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
