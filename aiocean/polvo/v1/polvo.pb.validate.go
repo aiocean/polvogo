@@ -43,9 +43,9 @@ func (m *Application) Validate() error {
 
 	// no validation rules for Uid
 
-	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
+	if utf8.RuneCountInString(m.GetName()) < 1 {
 		return ApplicationValidationError{
-			field:  "DisplayName",
+			field:  "Name",
 			reason: "value length must be at least 1 runes",
 		}
 	}
@@ -118,9 +118,9 @@ func (m *Package) Validate() error {
 
 	// no validation rules for Uid
 
-	if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
+	if utf8.RuneCountInString(m.GetName()) < 1 {
 		return PackageValidationError{
-			field:  "DisplayName",
+			field:  "Name",
 			reason: "value length must be at least 1 runes",
 		}
 	}
@@ -256,11 +256,11 @@ func (m *Version) Validate() error {
 
 	// no validation rules for Uid
 
-	if m.GetDisplayName() != "" {
+	if m.GetName() != "" {
 
-		if utf8.RuneCountInString(m.GetDisplayName()) < 1 {
+		if utf8.RuneCountInString(m.GetName()) < 1 {
 			return VersionValidationError{
-				field:  "DisplayName",
+				field:  "Name",
 				reason: "value length must be at least 1 runes",
 			}
 		}
