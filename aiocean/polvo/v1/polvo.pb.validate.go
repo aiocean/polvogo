@@ -50,30 +50,7 @@ func (m *Application) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ApplicationValidationError{
-				field:  "Config",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	for idx, item := range m.GetPackages() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ApplicationValidationError{
-					field:  fmt.Sprintf("Packages[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
+	// no validation rules for Config
 
 	return nil
 }
@@ -131,79 +108,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ApplicationValidationError{}
-
-// Validate checks the field values on Config with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Config) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Uid
-
-	if utf8.RuneCountInString(m.GetMeta()) < 1 {
-		return ConfigValidationError{
-			field:  "Meta",
-			reason: "value length must be at least 1 runes",
-		}
-	}
-
-	return nil
-}
-
-// ConfigValidationError is the validation error returned by Config.Validate if
-// the designated constraints aren't met.
-type ConfigValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ConfigValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ConfigValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ConfigValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ConfigValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ConfigValidationError) ErrorName() string { return "ConfigValidationError" }
-
-// Error satisfies the builtin error interface
-func (e ConfigValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sConfig.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ConfigValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ConfigValidationError{}
 
 // Validate checks the field values on Package with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -365,37 +269,37 @@ func (m *Version) Validate() error {
 
 	// no validation rules for GitRef
 
-	if m.GetEntryPointUrl() != "" {
+	if m.GetManifestUrl() != "" {
 
-		if utf8.RuneCountInString(m.GetEntryPointUrl()) < 1 {
+		if utf8.RuneCountInString(m.GetManifestUrl()) < 1 {
 			return VersionValidationError{
-				field:  "EntryPointUrl",
+				field:  "ManifestUrl",
 				reason: "value length must be at least 1 runes",
 			}
 		}
 
-		if uri, err := url.Parse(m.GetEntryPointUrl()); err != nil {
+		if uri, err := url.Parse(m.GetManifestUrl()); err != nil {
 			return VersionValidationError{
-				field:  "EntryPointUrl",
+				field:  "ManifestUrl",
 				reason: "value must be a valid URI",
 				cause:  err,
 			}
 		} else if !uri.IsAbs() {
 			return VersionValidationError{
-				field:  "EntryPointUrl",
+				field:  "ManifestUrl",
 				reason: "value must be absolute",
 			}
 		}
 
 	}
 
-	for idx, item := range m.GetModules() {
+	for idx, item := range m.GetEntries() {
 		_, _ = idx, item
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return VersionValidationError{
-					field:  fmt.Sprintf("Modules[%v]", idx),
+					field:  fmt.Sprintf("Entries[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -472,9 +376,9 @@ var _ interface {
 	ErrorName() string
 } = VersionValidationError{}
 
-// Validate checks the field values on Module with the rules defined in the
+// Validate checks the field values on Entry with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
-func (m *Module) Validate() error {
+func (m *Entry) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -482,21 +386,21 @@ func (m *Module) Validate() error {
 	// no validation rules for Uid
 
 	if utf8.RuneCountInString(m.GetName()) < 1 {
-		return ModuleValidationError{
+		return EntryValidationError{
 			field:  "Name",
 			reason: "value length must be at least 1 runes",
 		}
 	}
 
 	if utf8.RuneCountInString(m.GetPath()) < 1 {
-		return ModuleValidationError{
+		return EntryValidationError{
 			field:  "Path",
 			reason: "value length must be at least 1 runes",
 		}
 	}
 
 	if !strings.HasPrefix(m.GetPath(), "./") {
-		return ModuleValidationError{
+		return EntryValidationError{
 			field:  "Path",
 			reason: "value does not have prefix \"./\"",
 		}
@@ -505,9 +409,9 @@ func (m *Module) Validate() error {
 	return nil
 }
 
-// ModuleValidationError is the validation error returned by Module.Validate if
+// EntryValidationError is the validation error returned by Entry.Validate if
 // the designated constraints aren't met.
-type ModuleValidationError struct {
+type EntryValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -515,22 +419,22 @@ type ModuleValidationError struct {
 }
 
 // Field function returns field value.
-func (e ModuleValidationError) Field() string { return e.field }
+func (e EntryValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ModuleValidationError) Reason() string { return e.reason }
+func (e EntryValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ModuleValidationError) Cause() error { return e.cause }
+func (e EntryValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ModuleValidationError) Key() bool { return e.key }
+func (e EntryValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ModuleValidationError) ErrorName() string { return "ModuleValidationError" }
+func (e EntryValidationError) ErrorName() string { return "EntryValidationError" }
 
 // Error satisfies the builtin error interface
-func (e ModuleValidationError) Error() string {
+func (e EntryValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -542,14 +446,14 @@ func (e ModuleValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sModule.%s: %s%s",
+		"invalid %sEntry.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ModuleValidationError{}
+var _ error = EntryValidationError{}
 
 var _ interface {
 	Field() string
@@ -557,4 +461,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ModuleValidationError{}
+} = EntryValidationError{}

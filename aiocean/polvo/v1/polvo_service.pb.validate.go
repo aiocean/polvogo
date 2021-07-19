@@ -336,7 +336,7 @@ func (m *UpdateApplicationRequest) Validate() error {
 	if !_UpdateApplicationRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
 		return UpdateApplicationRequestValidationError{
 			field:  "ApplicationOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/applications/[^/]+$\"",
 		}
 	}
 
@@ -426,7 +426,7 @@ var _ interface {
 	ErrorName() string
 } = UpdateApplicationRequestValidationError{}
 
-var _UpdateApplicationRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
+var _UpdateApplicationRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo/applications/[^/]+$")
 
 // Validate checks the field values on UpdateApplicationResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -505,513 +505,28 @@ var _ interface {
 	ErrorName() string
 } = UpdateApplicationResponseValidationError{}
 
-// Validate checks the field values on GetConfigRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *GetConfigRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if !_GetConfigRequest_ConfigOrn_Pattern.MatchString(m.GetConfigOrn()) {
-		return GetConfigRequestValidationError{
-			field:  "ConfigOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
-		}
-	}
-
-	return nil
-}
-
-// GetConfigRequestValidationError is the validation error returned by
-// GetConfigRequest.Validate if the designated constraints aren't met.
-type GetConfigRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetConfigRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetConfigRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetConfigRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetConfigRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetConfigRequestValidationError) ErrorName() string { return "GetConfigRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e GetConfigRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetConfigRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetConfigRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetConfigRequestValidationError{}
-
-var _GetConfigRequest_ConfigOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
-
-// Validate checks the field values on GetConfigResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *GetConfigResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetConfigResponseValidationError{
-				field:  "Config",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// GetConfigResponseValidationError is the validation error returned by
-// GetConfigResponse.Validate if the designated constraints aren't met.
-type GetConfigResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetConfigResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetConfigResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetConfigResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetConfigResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetConfigResponseValidationError) ErrorName() string {
-	return "GetConfigResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetConfigResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetConfigResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetConfigResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetConfigResponseValidationError{}
-
-// Validate checks the field values on DeleteConfigRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteConfigRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if !_DeleteConfigRequest_ConfigOrn_Pattern.MatchString(m.GetConfigOrn()) {
-		return DeleteConfigRequestValidationError{
-			field:  "ConfigOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
-		}
-	}
-
-	return nil
-}
-
-// DeleteConfigRequestValidationError is the validation error returned by
-// DeleteConfigRequest.Validate if the designated constraints aren't met.
-type DeleteConfigRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteConfigRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteConfigRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteConfigRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteConfigRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteConfigRequestValidationError) ErrorName() string {
-	return "DeleteConfigRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteConfigRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteConfigRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteConfigRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteConfigRequestValidationError{}
-
-var _DeleteConfigRequest_ConfigOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
-
-// Validate checks the field values on DeleteConfigResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteConfigResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Message
-
-	return nil
-}
-
-// DeleteConfigResponseValidationError is the validation error returned by
-// DeleteConfigResponse.Validate if the designated constraints aren't met.
-type DeleteConfigResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteConfigResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteConfigResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteConfigResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteConfigResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteConfigResponseValidationError) ErrorName() string {
-	return "DeleteConfigResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteConfigResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteConfigResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteConfigResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteConfigResponseValidationError{}
-
-// Validate checks the field values on UpdateConfigRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateConfigRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if !_UpdateConfigRequest_ConfigOrn_Pattern.MatchString(m.GetConfigOrn()) {
-		return UpdateConfigRequestValidationError{
-			field:  "ConfigOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$\"",
-		}
-	}
-
-	if m.GetConfig() == nil {
-		return UpdateConfigRequestValidationError{
-			field:  "Config",
-			reason: "value is required",
-		}
-	}
-
-	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateConfigRequestValidationError{
-				field:  "Config",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if m.GetUpdateMask() == nil {
-		return UpdateConfigRequestValidationError{
-			field:  "UpdateMask",
-			reason: "value is required",
-		}
-	}
-
-	if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateConfigRequestValidationError{
-				field:  "UpdateMask",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// UpdateConfigRequestValidationError is the validation error returned by
-// UpdateConfigRequest.Validate if the designated constraints aren't met.
-type UpdateConfigRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateConfigRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateConfigRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateConfigRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateConfigRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateConfigRequestValidationError) ErrorName() string {
-	return "UpdateConfigRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateConfigRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateConfigRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateConfigRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateConfigRequestValidationError{}
-
-var _UpdateConfigRequest_ConfigOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/configs/[^/]+$")
-
-// Validate checks the field values on UpdateConfigResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateConfigResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetConfig()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateConfigResponseValidationError{
-				field:  "Config",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for Message
-
-	return nil
-}
-
-// UpdateConfigResponseValidationError is the validation error returned by
-// UpdateConfigResponse.Validate if the designated constraints aren't met.
-type UpdateConfigResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateConfigResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateConfigResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateConfigResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateConfigResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateConfigResponseValidationError) ErrorName() string {
-	return "UpdateConfigResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateConfigResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateConfigResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateConfigResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateConfigResponseValidationError{}
-
-// Validate checks the field values on GetPackageEntryPointRequest with the
+// Validate checks the field values on GetPackageManifestUrlRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetPackageEntryPointRequest) Validate() error {
+func (m *GetPackageManifestUrlRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if !_GetPackageEntryPointRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return GetPackageEntryPointRequestValidationError{
+	if !_GetPackageManifestUrlRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
+		return GetPackageManifestUrlRequestValidationError{
 			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/manifest$\"",
 		}
 	}
 
 	return nil
 }
 
-// GetPackageEntryPointRequestValidationError is the validation error returned
-// by GetPackageEntryPointRequest.Validate if the designated constraints
+// GetPackageManifestUrlRequestValidationError is the validation error returned
+// by GetPackageManifestUrlRequest.Validate if the designated constraints
 // aren't met.
-type GetPackageEntryPointRequestValidationError struct {
+type GetPackageManifestUrlRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1019,24 +534,24 @@ type GetPackageEntryPointRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetPackageEntryPointRequestValidationError) Field() string { return e.field }
+func (e GetPackageManifestUrlRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetPackageEntryPointRequestValidationError) Reason() string { return e.reason }
+func (e GetPackageManifestUrlRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetPackageEntryPointRequestValidationError) Cause() error { return e.cause }
+func (e GetPackageManifestUrlRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetPackageEntryPointRequestValidationError) Key() bool { return e.key }
+func (e GetPackageManifestUrlRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetPackageEntryPointRequestValidationError) ErrorName() string {
-	return "GetPackageEntryPointRequestValidationError"
+func (e GetPackageManifestUrlRequestValidationError) ErrorName() string {
+	return "GetPackageManifestUrlRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetPackageEntryPointRequestValidationError) Error() string {
+func (e GetPackageManifestUrlRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1048,14 +563,14 @@ func (e GetPackageEntryPointRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetPackageEntryPointRequest.%s: %s%s",
+		"invalid %sGetPackageManifestUrlRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetPackageEntryPointRequestValidationError{}
+var _ error = GetPackageManifestUrlRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1063,27 +578,27 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetPackageEntryPointRequestValidationError{}
+} = GetPackageManifestUrlRequestValidationError{}
 
-var _GetPackageEntryPointRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+var _GetPackageManifestUrlRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/manifest$")
 
-// Validate checks the field values on GetPackageEntryPointResponse with the
+// Validate checks the field values on GetPackageManifestUrlResponse with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetPackageEntryPointResponse) Validate() error {
+func (m *GetPackageManifestUrlResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for EntryPointUrl
+	// no validation rules for ManifestUrl
 
 	return nil
 }
 
-// GetPackageEntryPointResponseValidationError is the validation error returned
-// by GetPackageEntryPointResponse.Validate if the designated constraints
-// aren't met.
-type GetPackageEntryPointResponseValidationError struct {
+// GetPackageManifestUrlResponseValidationError is the validation error
+// returned by GetPackageManifestUrlResponse.Validate if the designated
+// constraints aren't met.
+type GetPackageManifestUrlResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1091,24 +606,24 @@ type GetPackageEntryPointResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetPackageEntryPointResponseValidationError) Field() string { return e.field }
+func (e GetPackageManifestUrlResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetPackageEntryPointResponseValidationError) Reason() string { return e.reason }
+func (e GetPackageManifestUrlResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetPackageEntryPointResponseValidationError) Cause() error { return e.cause }
+func (e GetPackageManifestUrlResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetPackageEntryPointResponseValidationError) Key() bool { return e.key }
+func (e GetPackageManifestUrlResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetPackageEntryPointResponseValidationError) ErrorName() string {
-	return "GetPackageEntryPointResponseValidationError"
+func (e GetPackageManifestUrlResponseValidationError) ErrorName() string {
+	return "GetPackageManifestUrlResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetPackageEntryPointResponseValidationError) Error() string {
+func (e GetPackageManifestUrlResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1120,14 +635,14 @@ func (e GetPackageEntryPointResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetPackageEntryPointResponse.%s: %s%s",
+		"invalid %sGetPackageManifestUrlResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetPackageEntryPointResponseValidationError{}
+var _ error = GetPackageManifestUrlResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -1135,7 +650,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetPackageEntryPointResponseValidationError{}
+} = GetPackageManifestUrlResponseValidationError{}
 
 // Validate checks the field values on DeletePackageRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1148,7 +663,7 @@ func (m *DeletePackageRequest) Validate() error {
 	if !_DeletePackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
 		return DeletePackageRequestValidationError{
 			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
 		}
 	}
 
@@ -1211,7 +726,7 @@ var _ interface {
 	ErrorName() string
 } = DeletePackageRequestValidationError{}
 
-var _DeletePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+var _DeletePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on DeletePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1290,13 +805,6 @@ func (m *ListPackagesRequest) Validate() error {
 		return nil
 	}
 
-	if !_ListPackagesRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
-		return ListPackagesRequestValidationError{
-			field:  "ApplicationOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
-		}
-	}
-
 	return nil
 }
 
@@ -1355,8 +863,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListPackagesRequestValidationError{}
-
-var _ListPackagesRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
 
 // Validate checks the field values on ListPackagesResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1451,7 +957,7 @@ func (m *GetPackageRequest) Validate() error {
 	if !_GetPackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
 		return GetPackageRequestValidationError{
 			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
 		}
 	}
 
@@ -1514,7 +1020,7 @@ var _ interface {
 	ErrorName() string
 } = GetPackageRequestValidationError{}
 
-var _GetPackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+var _GetPackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on GetPackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1601,13 +1107,6 @@ func (m *CreatePackageRequest) Validate() error {
 		return nil
 	}
 
-	if !_CreatePackageRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
-		return CreatePackageRequestValidationError{
-			field:  "ApplicationOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+$\"",
-		}
-	}
-
 	if v, ok := interface{}(m.GetPackage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreatePackageRequestValidationError{
@@ -1676,8 +1175,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreatePackageRequestValidationError{}
-
-var _CreatePackageRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+$")
 
 // Validate checks the field values on CreatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1767,7 +1264,7 @@ func (m *ListVersionsRequest) Validate() error {
 	if !_ListVersionsRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
 		return ListVersionsRequestValidationError{
 			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
 		}
 	}
 
@@ -1830,7 +1327,7 @@ var _ interface {
 	ErrorName() string
 } = ListVersionsRequestValidationError{}
 
-var _ListVersionsRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+var _ListVersionsRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on ListVersionsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1925,7 +1422,7 @@ func (m *GetVersionRequest) Validate() error {
 	if !_GetVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
 		return GetVersionRequestValidationError{
 			field:  "VersionOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -1988,7 +1485,7 @@ var _ interface {
 	ErrorName() string
 } = GetVersionRequestValidationError{}
 
-var _GetVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$")
+var _GetVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on GetVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2075,6 +1572,13 @@ func (m *CreateVersionRequest) Validate() error {
 		return nil
 	}
 
+	if !_CreateVersionRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
+		return CreateVersionRequestValidationError{
+			field:  "PackageOrn",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
+		}
+	}
+
 	if v, ok := interface{}(m.GetVersion()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreateVersionRequestValidationError{
@@ -2143,6 +1647,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateVersionRequestValidationError{}
+
+var _CreateVersionRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on CreateVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2234,7 +1740,7 @@ func (m *UpdatePackageRequest) Validate() error {
 	if !_UpdatePackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
 		return UpdatePackageRequestValidationError{
 			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
 		}
 	}
 
@@ -2331,7 +1837,7 @@ var _ interface {
 	ErrorName() string
 } = UpdatePackageRequestValidationError{}
 
-var _UpdatePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+$")
+var _UpdatePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on UpdatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2423,7 +1929,7 @@ func (m *UpdateVersionRequest) Validate() error {
 	if !_UpdateVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
 		return UpdateVersionRequestValidationError{
 			field:  "VersionOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -2520,7 +2026,7 @@ var _ interface {
 	ErrorName() string
 } = UpdateVersionRequestValidationError{}
 
-var _UpdateVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$")
+var _UpdateVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2533,7 +2039,7 @@ func (m *DeleteVersionRequest) Validate() error {
 	if !_DeleteVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
 		return DeleteVersionRequestValidationError{
 			field:  "VersionOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -2596,7 +2102,7 @@ var _ interface {
 	ErrorName() string
 } = DeleteVersionRequestValidationError{}
 
-var _DeleteVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo.aiocean.services/applications/[^/]+/packages/[^/]+/versions/[^/]+$")
+var _DeleteVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
