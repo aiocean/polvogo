@@ -195,7 +195,7 @@ func (m *DeleteApplicationRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for ApplicationOrn
+	// no validation rules for Uid
 
 	return nil
 }
@@ -333,13 +333,6 @@ func (m *UpdateApplicationRequest) Validate() error {
 		return nil
 	}
 
-	if !_UpdateApplicationRequest_ApplicationOrn_Pattern.MatchString(m.GetApplicationOrn()) {
-		return UpdateApplicationRequestValidationError{
-			field:  "ApplicationOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/applications/[^/]+$\"",
-		}
-	}
-
 	if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return UpdateApplicationRequestValidationError{
@@ -426,8 +419,6 @@ var _ interface {
 	ErrorName() string
 } = UpdateApplicationRequestValidationError{}
 
-var _UpdateApplicationRequest_ApplicationOrn_Pattern = regexp.MustCompile("(?m)^polvo/applications/[^/]+$")
-
 // Validate checks the field values on UpdateApplicationResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -513,12 +504,7 @@ func (m *GetPackageManifestUrlRequest) Validate() error {
 		return nil
 	}
 
-	if !_GetPackageManifestUrlRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return GetPackageManifestUrlRequestValidationError{
-			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/manifest$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	return nil
 }
@@ -579,8 +565,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPackageManifestUrlRequestValidationError{}
-
-var _GetPackageManifestUrlRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/manifest$")
 
 // Validate checks the field values on GetPackageManifestUrlResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -660,12 +644,7 @@ func (m *DeletePackageRequest) Validate() error {
 		return nil
 	}
 
-	if !_DeletePackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return DeletePackageRequestValidationError{
-			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	return nil
 }
@@ -725,8 +704,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeletePackageRequestValidationError{}
-
-var _DeletePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on DeletePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -954,12 +931,7 @@ func (m *GetPackageRequest) Validate() error {
 		return nil
 	}
 
-	if !_GetPackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return GetPackageRequestValidationError{
-			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	return nil
 }
@@ -1019,8 +991,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPackageRequestValidationError{}
-
-var _GetPackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on GetPackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1261,12 +1231,7 @@ func (m *ListVersionsRequest) Validate() error {
 		return nil
 	}
 
-	if !_ListVersionsRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return ListVersionsRequestValidationError{
-			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
-		}
-	}
+	// no validation rules for PackageUid
 
 	return nil
 }
@@ -1326,8 +1291,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListVersionsRequestValidationError{}
-
-var _ListVersionsRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
 
 // Validate checks the field values on ListVersionsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1572,12 +1535,7 @@ func (m *CreateVersionRequest) Validate() error {
 		return nil
 	}
 
-	if !_CreateVersionRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return CreateVersionRequestValidationError{
-			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
-		}
-	}
+	// no validation rules for PackageUid
 
 	if v, ok := interface{}(m.GetVersion()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -1648,8 +1606,6 @@ var _ interface {
 	ErrorName() string
 } = CreateVersionRequestValidationError{}
 
-var _CreateVersionRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
-
 // Validate checks the field values on CreateVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1667,8 +1623,6 @@ func (m *CreateVersionResponse) Validate() error {
 			}
 		}
 	}
-
-	// no validation rules for Message
 
 	return nil
 }
@@ -1735,13 +1689,6 @@ var _ interface {
 func (m *UpdatePackageRequest) Validate() error {
 	if m == nil {
 		return nil
-	}
-
-	if !_UpdatePackageRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
-		return UpdatePackageRequestValidationError{
-			field:  "PackageOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+$\"",
-		}
 	}
 
 	if m.GetPackage() == nil {
@@ -1837,8 +1784,6 @@ var _ interface {
 	ErrorName() string
 } = UpdatePackageRequestValidationError{}
 
-var _UpdatePackageRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+$")
-
 // Validate checks the field values on UpdatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1856,8 +1801,6 @@ func (m *UpdatePackageResponse) Validate() error {
 			}
 		}
 	}
-
-	// no validation rules for Message
 
 	return nil
 }
@@ -1924,13 +1867,6 @@ var _ interface {
 func (m *UpdateVersionRequest) Validate() error {
 	if m == nil {
 		return nil
-	}
-
-	if !_UpdateVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
-		return UpdateVersionRequestValidationError{
-			field:  "VersionOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/versions/[^/]+$\"",
-		}
 	}
 
 	if m.GetVersion() == nil {
@@ -2026,8 +1962,6 @@ var _ interface {
 	ErrorName() string
 } = UpdateVersionRequestValidationError{}
 
-var _UpdateVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/versions/[^/]+$")
-
 // Validate checks the field values on DeleteVersionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -2036,12 +1970,7 @@ func (m *DeleteVersionRequest) Validate() error {
 		return nil
 	}
 
-	if !_DeleteVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
-		return DeleteVersionRequestValidationError{
-			field:  "VersionOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/versions/[^/]+$\"",
-		}
-	}
+	// no validation rules for Uid
 
 	return nil
 }
@@ -2101,8 +2030,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteVersionRequestValidationError{}
-
-var _DeleteVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2190,8 +2117,6 @@ func (m *UpdateVersionResponse) Validate() error {
 			}
 		}
 	}
-
-	// no validation rules for Message
 
 	return nil
 }

@@ -308,17 +308,6 @@ func (m *Version) Validate() error {
 
 	}
 
-	if m.GetBuildName() != "" {
-
-		if utf8.RuneCountInString(m.GetBuildName()) < 1 {
-			return VersionValidationError{
-				field:  "BuildName",
-				reason: "value length must be at least 1 runes",
-			}
-		}
-
-	}
-
 	return nil
 }
 
