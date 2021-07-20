@@ -2252,13 +2252,13 @@ func (m *ListApplicationsResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetApplication() {
+	for idx, item := range m.GetApplications() {
 		_, _ = idx, item
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ListApplicationsResponseValidationError{
-					field:  fmt.Sprintf("Application[%v]", idx),
+					field:  fmt.Sprintf("Applications[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
