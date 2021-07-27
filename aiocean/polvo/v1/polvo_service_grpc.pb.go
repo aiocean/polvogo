@@ -29,8 +29,8 @@ type PolvoServiceClient interface {
 	ListPackages(ctx context.Context, in *ListPackagesRequest, opts ...grpc.CallOption) (PolvoService_ListPackagesClient, error)
 	DeletePackage(ctx context.Context, in *DeletePackageRequest, opts ...grpc.CallOption) (PolvoService_DeletePackageClient, error)
 	ListVersions(ctx context.Context, in *ListVersionsRequest, opts ...grpc.CallOption) (PolvoService_ListVersionsClient, error)
-	CreateVersion(ctx context.Context, in *CreateVersionRequest, opts ...grpc.CallOption) (*CreateVersionResponse, error)
-	UpdateVersion(ctx context.Context, in *UpdateVersionRequest, opts ...grpc.CallOption) (*UpdateVersionResponse, error)
+	CreateVersion(ctx context.Context, in *CreateVersionRequest, opts ...grpc.CallOption) (PolvoService_CreateVersionClient, error)
+	UpdateVersion(ctx context.Context, in *UpdateVersionRequest, opts ...grpc.CallOption) (PolvoService_UpdateVersionClient, error)
 	DeleteVersion(ctx context.Context, in *DeleteVersionRequest, opts ...grpc.CallOption) (PolvoService_DeleteVersionClient, error)
 	GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error)
 }
@@ -326,26 +326,72 @@ func (x *polvoServiceListVersionsClient) Recv() (*ListVersionsResponse, error) {
 	return m, nil
 }
 
-func (c *polvoServiceClient) CreateVersion(ctx context.Context, in *CreateVersionRequest, opts ...grpc.CallOption) (*CreateVersionResponse, error) {
-	out := new(CreateVersionResponse)
-	err := c.cc.Invoke(ctx, "/aiocean.polvo.v1.PolvoService/CreateVersion", in, out, opts...)
+func (c *polvoServiceClient) CreateVersion(ctx context.Context, in *CreateVersionRequest, opts ...grpc.CallOption) (PolvoService_CreateVersionClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[8], "/aiocean.polvo.v1.PolvoService/CreateVersion", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &polvoServiceCreateVersionClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
 }
 
-func (c *polvoServiceClient) UpdateVersion(ctx context.Context, in *UpdateVersionRequest, opts ...grpc.CallOption) (*UpdateVersionResponse, error) {
-	out := new(UpdateVersionResponse)
-	err := c.cc.Invoke(ctx, "/aiocean.polvo.v1.PolvoService/UpdateVersion", in, out, opts...)
+type PolvoService_CreateVersionClient interface {
+	Recv() (*CreateVersionResponse, error)
+	grpc.ClientStream
+}
+
+type polvoServiceCreateVersionClient struct {
+	grpc.ClientStream
+}
+
+func (x *polvoServiceCreateVersionClient) Recv() (*CreateVersionResponse, error) {
+	m := new(CreateVersionResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *polvoServiceClient) UpdateVersion(ctx context.Context, in *UpdateVersionRequest, opts ...grpc.CallOption) (PolvoService_UpdateVersionClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[9], "/aiocean.polvo.v1.PolvoService/UpdateVersion", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &polvoServiceUpdateVersionClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type PolvoService_UpdateVersionClient interface {
+	Recv() (*UpdateVersionResponse, error)
+	grpc.ClientStream
+}
+
+type polvoServiceUpdateVersionClient struct {
+	grpc.ClientStream
+}
+
+func (x *polvoServiceUpdateVersionClient) Recv() (*UpdateVersionResponse, error) {
+	m := new(UpdateVersionResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func (c *polvoServiceClient) DeleteVersion(ctx context.Context, in *DeleteVersionRequest, opts ...grpc.CallOption) (PolvoService_DeleteVersionClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[8], "/aiocean.polvo.v1.PolvoService/DeleteVersion", opts...)
+	stream, err := c.cc.NewStream(ctx, &PolvoService_ServiceDesc.Streams[10], "/aiocean.polvo.v1.PolvoService/DeleteVersion", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -400,8 +446,8 @@ type PolvoServiceServer interface {
 	ListPackages(*ListPackagesRequest, PolvoService_ListPackagesServer) error
 	DeletePackage(*DeletePackageRequest, PolvoService_DeletePackageServer) error
 	ListVersions(*ListVersionsRequest, PolvoService_ListVersionsServer) error
-	CreateVersion(context.Context, *CreateVersionRequest) (*CreateVersionResponse, error)
-	UpdateVersion(context.Context, *UpdateVersionRequest) (*UpdateVersionResponse, error)
+	CreateVersion(*CreateVersionRequest, PolvoService_CreateVersionServer) error
+	UpdateVersion(*UpdateVersionRequest, PolvoService_UpdateVersionServer) error
 	DeleteVersion(*DeleteVersionRequest, PolvoService_DeleteVersionServer) error
 	GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error)
 	mustEmbedUnimplementedPolvoServiceServer()
@@ -444,11 +490,11 @@ func (UnimplementedPolvoServiceServer) DeletePackage(*DeletePackageRequest, Polv
 func (UnimplementedPolvoServiceServer) ListVersions(*ListVersionsRequest, PolvoService_ListVersionsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListVersions not implemented")
 }
-func (UnimplementedPolvoServiceServer) CreateVersion(context.Context, *CreateVersionRequest) (*CreateVersionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateVersion not implemented")
+func (UnimplementedPolvoServiceServer) CreateVersion(*CreateVersionRequest, PolvoService_CreateVersionServer) error {
+	return status.Errorf(codes.Unimplemented, "method CreateVersion not implemented")
 }
-func (UnimplementedPolvoServiceServer) UpdateVersion(context.Context, *UpdateVersionRequest) (*UpdateVersionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateVersion not implemented")
+func (UnimplementedPolvoServiceServer) UpdateVersion(*UpdateVersionRequest, PolvoService_UpdateVersionServer) error {
+	return status.Errorf(codes.Unimplemented, "method UpdateVersion not implemented")
 }
 func (UnimplementedPolvoServiceServer) DeleteVersion(*DeleteVersionRequest, PolvoService_DeleteVersionServer) error {
 	return status.Errorf(codes.Unimplemented, "method DeleteVersion not implemented")
@@ -691,40 +737,46 @@ func (x *polvoServiceListVersionsServer) Send(m *ListVersionsResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _PolvoService_CreateVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateVersionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _PolvoService_CreateVersion_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CreateVersionRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(PolvoServiceServer).CreateVersion(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/aiocean.polvo.v1.PolvoService/CreateVersion",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolvoServiceServer).CreateVersion(ctx, req.(*CreateVersionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(PolvoServiceServer).CreateVersion(m, &polvoServiceCreateVersionServer{stream})
 }
 
-func _PolvoService_UpdateVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateVersionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+type PolvoService_CreateVersionServer interface {
+	Send(*CreateVersionResponse) error
+	grpc.ServerStream
+}
+
+type polvoServiceCreateVersionServer struct {
+	grpc.ServerStream
+}
+
+func (x *polvoServiceCreateVersionServer) Send(m *CreateVersionResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _PolvoService_UpdateVersion_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(UpdateVersionRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(PolvoServiceServer).UpdateVersion(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/aiocean.polvo.v1.PolvoService/UpdateVersion",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolvoServiceServer).UpdateVersion(ctx, req.(*UpdateVersionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(PolvoServiceServer).UpdateVersion(m, &polvoServiceUpdateVersionServer{stream})
+}
+
+type PolvoService_UpdateVersionServer interface {
+	Send(*UpdateVersionResponse) error
+	grpc.ServerStream
+}
+
+type polvoServiceUpdateVersionServer struct {
+	grpc.ServerStream
+}
+
+func (x *polvoServiceUpdateVersionServer) Send(m *UpdateVersionResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _PolvoService_DeleteVersion_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -786,14 +838,6 @@ var PolvoService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PolvoService_GetPackageManifestUrl_Handler,
 		},
 		{
-			MethodName: "CreateVersion",
-			Handler:    _PolvoService_CreateVersion_Handler,
-		},
-		{
-			MethodName: "UpdateVersion",
-			Handler:    _PolvoService_UpdateVersion_Handler,
-		},
-		{
 			MethodName: "GetVersion",
 			Handler:    _PolvoService_GetVersion_Handler,
 		},
@@ -837,6 +881,16 @@ var PolvoService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "ListVersions",
 			Handler:       _PolvoService_ListVersions_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "CreateVersion",
+			Handler:       _PolvoService_CreateVersion_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "UpdateVersion",
+			Handler:       _PolvoService_UpdateVersion_Handler,
 			ServerStreams: true,
 		},
 		{
