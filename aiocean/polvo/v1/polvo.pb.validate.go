@@ -308,6 +308,8 @@ func (m *Version) Validate() error {
 
 	}
 
+	// no validation rules for Weight
+
 	return nil
 }
 
