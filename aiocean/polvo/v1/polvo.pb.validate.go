@@ -267,8 +267,6 @@ func (m *Version) Validate() error {
 
 	}
 
-	// no validation rules for GitRef
-
 	if m.GetManifestUrl() != "" {
 
 		if utf8.RuneCountInString(m.GetManifestUrl()) < 1 {
@@ -293,22 +291,17 @@ func (m *Version) Validate() error {
 
 	}
 
-	for idx, item := range m.GetEntries() {
-		_, _ = idx, item
+	// no validation rules for Weight
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return VersionValidationError{
-					field:  fmt.Sprintf("Entries[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
+	if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VersionValidationError{
+				field:  "CreatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
 			}
 		}
-
 	}
-
-	// no validation rules for Weight
 
 	return nil
 }
@@ -366,90 +359,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = VersionValidationError{}
-
-// Validate checks the field values on Entry with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Entry) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Uid
-
-	if utf8.RuneCountInString(m.GetName()) < 1 {
-		return EntryValidationError{
-			field:  "Name",
-			reason: "value length must be at least 1 runes",
-		}
-	}
-
-	if utf8.RuneCountInString(m.GetPath()) < 1 {
-		return EntryValidationError{
-			field:  "Path",
-			reason: "value length must be at least 1 runes",
-		}
-	}
-
-	if !strings.HasPrefix(m.GetPath(), "./") {
-		return EntryValidationError{
-			field:  "Path",
-			reason: "value does not have prefix \"./\"",
-		}
-	}
-
-	return nil
-}
-
-// EntryValidationError is the validation error returned by Entry.Validate if
-// the designated constraints aren't met.
-type EntryValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e EntryValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e EntryValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e EntryValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e EntryValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e EntryValidationError) ErrorName() string { return "EntryValidationError" }
-
-// Error satisfies the builtin error interface
-func (e EntryValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sEntry.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = EntryValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = EntryValidationError{}
