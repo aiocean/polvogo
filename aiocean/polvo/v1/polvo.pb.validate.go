@@ -185,6 +185,13 @@ func (m *Version) Validate() error {
 			}
 		}
 
+		if strings.Contains(m.GetName(), "any") {
+			return VersionValidationError{
+				field:  "Name",
+				reason: "value contains substring \"any\"",
+			}
+		}
+
 	}
 
 	if m.GetManifestUrl() != "" {
