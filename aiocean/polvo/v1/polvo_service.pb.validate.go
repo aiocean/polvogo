@@ -33,30 +33,27 @@ var (
 	_ = anypb.Any{}
 )
 
-// Validate checks the field values on CreateApplicationRequest with the rules
+// Validate checks the field values on GetManifestUrlRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *CreateApplicationRequest) Validate() error {
+func (m *GetManifestUrlRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateApplicationRequestValidationError{
-				field:  "Application",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+	if !_GetManifestUrlRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return GetManifestUrlRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
 	return nil
 }
 
-// CreateApplicationRequestValidationError is the validation error returned by
-// CreateApplicationRequest.Validate if the designated constraints aren't met.
-type CreateApplicationRequestValidationError struct {
+// GetManifestUrlRequestValidationError is the validation error returned by
+// GetManifestUrlRequest.Validate if the designated constraints aren't met.
+type GetManifestUrlRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -64,24 +61,24 @@ type CreateApplicationRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateApplicationRequestValidationError) Field() string { return e.field }
+func (e GetManifestUrlRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateApplicationRequestValidationError) Reason() string { return e.reason }
+func (e GetManifestUrlRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateApplicationRequestValidationError) Cause() error { return e.cause }
+func (e GetManifestUrlRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateApplicationRequestValidationError) Key() bool { return e.key }
+func (e GetManifestUrlRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateApplicationRequestValidationError) ErrorName() string {
-	return "CreateApplicationRequestValidationError"
+func (e GetManifestUrlRequestValidationError) ErrorName() string {
+	return "GetManifestUrlRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CreateApplicationRequestValidationError) Error() string {
+func (e GetManifestUrlRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -93,14 +90,14 @@ func (e CreateApplicationRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateApplicationRequest.%s: %s%s",
+		"invalid %sGetManifestUrlRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateApplicationRequestValidationError{}
+var _ error = GetManifestUrlRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -108,468 +105,14 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateApplicationRequestValidationError{}
+} = GetManifestUrlRequestValidationError{}
 
-// Validate checks the field values on CreateApplicationResponse with the rules
+var _GetManifestUrlRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
+
+// Validate checks the field values on GetManifestUrlResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *CreateApplicationResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateApplicationResponseValidationError{
-				field:  "Application",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// CreateApplicationResponseValidationError is the validation error returned by
-// CreateApplicationResponse.Validate if the designated constraints aren't met.
-type CreateApplicationResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e CreateApplicationResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e CreateApplicationResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e CreateApplicationResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e CreateApplicationResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e CreateApplicationResponseValidationError) ErrorName() string {
-	return "CreateApplicationResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e CreateApplicationResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCreateApplicationResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = CreateApplicationResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = CreateApplicationResponseValidationError{}
-
-// Validate checks the field values on DeleteApplicationRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteApplicationRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Uid
-
-	return nil
-}
-
-// DeleteApplicationRequestValidationError is the validation error returned by
-// DeleteApplicationRequest.Validate if the designated constraints aren't met.
-type DeleteApplicationRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteApplicationRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteApplicationRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteApplicationRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteApplicationRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteApplicationRequestValidationError) ErrorName() string {
-	return "DeleteApplicationRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteApplicationRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteApplicationRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteApplicationRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteApplicationRequestValidationError{}
-
-// Validate checks the field values on DeleteApplicationResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteApplicationResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Message
-
-	return nil
-}
-
-// DeleteApplicationResponseValidationError is the validation error returned by
-// DeleteApplicationResponse.Validate if the designated constraints aren't met.
-type DeleteApplicationResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteApplicationResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteApplicationResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteApplicationResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteApplicationResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteApplicationResponseValidationError) ErrorName() string {
-	return "DeleteApplicationResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteApplicationResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteApplicationResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteApplicationResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteApplicationResponseValidationError{}
-
-// Validate checks the field values on UpdateApplicationRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateApplicationRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateApplicationRequestValidationError{
-				field:  "Application",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if m.GetUpdateMask() == nil {
-		return UpdateApplicationRequestValidationError{
-			field:  "UpdateMask",
-			reason: "value is required",
-		}
-	}
-
-	if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateApplicationRequestValidationError{
-				field:  "UpdateMask",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// UpdateApplicationRequestValidationError is the validation error returned by
-// UpdateApplicationRequest.Validate if the designated constraints aren't met.
-type UpdateApplicationRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateApplicationRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateApplicationRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateApplicationRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateApplicationRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateApplicationRequestValidationError) ErrorName() string {
-	return "UpdateApplicationRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateApplicationRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateApplicationRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateApplicationRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateApplicationRequestValidationError{}
-
-// Validate checks the field values on UpdateApplicationResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateApplicationResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetApplication()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateApplicationResponseValidationError{
-				field:  "Application",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// UpdateApplicationResponseValidationError is the validation error returned by
-// UpdateApplicationResponse.Validate if the designated constraints aren't met.
-type UpdateApplicationResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateApplicationResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateApplicationResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateApplicationResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateApplicationResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateApplicationResponseValidationError) ErrorName() string {
-	return "UpdateApplicationResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateApplicationResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateApplicationResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateApplicationResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateApplicationResponseValidationError{}
-
-// Validate checks the field values on GetPackageManifestUrlRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetPackageManifestUrlRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Uid
-
-	return nil
-}
-
-// GetPackageManifestUrlRequestValidationError is the validation error returned
-// by GetPackageManifestUrlRequest.Validate if the designated constraints
-// aren't met.
-type GetPackageManifestUrlRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetPackageManifestUrlRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetPackageManifestUrlRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetPackageManifestUrlRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetPackageManifestUrlRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetPackageManifestUrlRequestValidationError) ErrorName() string {
-	return "GetPackageManifestUrlRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetPackageManifestUrlRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetPackageManifestUrlRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetPackageManifestUrlRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetPackageManifestUrlRequestValidationError{}
-
-// Validate checks the field values on GetPackageManifestUrlResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetPackageManifestUrlResponse) Validate() error {
+func (m *GetManifestUrlResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -579,10 +122,9 @@ func (m *GetPackageManifestUrlResponse) Validate() error {
 	return nil
 }
 
-// GetPackageManifestUrlResponseValidationError is the validation error
-// returned by GetPackageManifestUrlResponse.Validate if the designated
-// constraints aren't met.
-type GetPackageManifestUrlResponseValidationError struct {
+// GetManifestUrlResponseValidationError is the validation error returned by
+// GetManifestUrlResponse.Validate if the designated constraints aren't met.
+type GetManifestUrlResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -590,24 +132,24 @@ type GetPackageManifestUrlResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetPackageManifestUrlResponseValidationError) Field() string { return e.field }
+func (e GetManifestUrlResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetPackageManifestUrlResponseValidationError) Reason() string { return e.reason }
+func (e GetManifestUrlResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetPackageManifestUrlResponseValidationError) Cause() error { return e.cause }
+func (e GetManifestUrlResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetPackageManifestUrlResponseValidationError) Key() bool { return e.key }
+func (e GetManifestUrlResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetPackageManifestUrlResponseValidationError) ErrorName() string {
-	return "GetPackageManifestUrlResponseValidationError"
+func (e GetManifestUrlResponseValidationError) ErrorName() string {
+	return "GetManifestUrlResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetPackageManifestUrlResponseValidationError) Error() string {
+func (e GetManifestUrlResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -619,14 +161,14 @@ func (e GetPackageManifestUrlResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetPackageManifestUrlResponse.%s: %s%s",
+		"invalid %sGetManifestUrlResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetPackageManifestUrlResponseValidationError{}
+var _ error = GetManifestUrlResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -634,7 +176,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetPackageManifestUrlResponseValidationError{}
+} = GetManifestUrlResponseValidationError{}
 
 // Validate checks the field values on DeletePackageRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -644,7 +186,12 @@ func (m *DeletePackageRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Uid
+	if !_DeletePackageRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return DeletePackageRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -704,6 +251,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeletePackageRequestValidationError{}
+
+var _DeletePackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
 
 // Validate checks the field values on DeletePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -931,7 +480,12 @@ func (m *GetPackageRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Uid
+	if !_GetPackageRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return GetPackageRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -991,6 +545,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPackageRequestValidationError{}
+
+var _GetPackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
 
 // Validate checks the field values on GetPackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1231,7 +787,12 @@ func (m *ListVersionsRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PackageUid
+	if !_ListVersionsRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return ListVersionsRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -1291,6 +852,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListVersionsRequestValidationError{}
+
+var _ListVersionsRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
 
 // Validate checks the field values on ListVersionsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1382,10 +945,10 @@ func (m *GetVersionRequest) Validate() error {
 		return nil
 	}
 
-	if !_GetVersionRequest_VersionOrn_Pattern.MatchString(m.GetVersionOrn()) {
+	if !_GetVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return GetVersionRequestValidationError{
-			field:  "VersionOrn",
-			reason: "value does not match regex pattern \"(?m)^polvo/packages/[^/]+/versions/[^/]+$\"",
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -1448,7 +1011,7 @@ var _ interface {
 	ErrorName() string
 } = GetVersionRequestValidationError{}
 
-var _GetVersionRequest_VersionOrn_Pattern = regexp.MustCompile("(?m)^polvo/packages/[^/]+/versions/[^/]+$")
+var _GetVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on GetVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1535,7 +1098,12 @@ func (m *CreateVersionRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PackageUid
+	if !_CreateVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return CreateVersionRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+		}
+	}
 
 	if v, ok := interface{}(m.GetVersion()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -1605,6 +1173,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateVersionRequestValidationError{}
+
+var _CreateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
 
 // Validate checks the field values on CreateVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1725,6 +1295,13 @@ func (m *UpdatePackageRequest) Validate() error {
 		}
 	}
 
+	if !_UpdatePackageRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return UpdatePackageRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+		}
+	}
+
 	return nil
 }
 
@@ -1783,6 +1360,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdatePackageRequestValidationError{}
+
+var _UpdatePackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
 
 // Validate checks the field values on UpdatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1867,6 +1446,13 @@ var _ interface {
 func (m *UpdateVersionRequest) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if !_UpdateVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return UpdateVersionRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
+		}
 	}
 
 	if m.GetVersion() == nil {
@@ -1962,6 +1548,8 @@ var _ interface {
 	ErrorName() string
 } = UpdateVersionRequestValidationError{}
 
+var _UpdateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
+
 // Validate checks the field values on DeleteVersionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1970,7 +1558,12 @@ func (m *DeleteVersionRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Uid
+	if !_DeleteVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+		return DeleteVersionRequestValidationError{
+			field:  "Orn",
+			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -2030,6 +1623,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteVersionRequestValidationError{}
+
+var _DeleteVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2176,152 +1771,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateVersionResponseValidationError{}
-
-// Validate checks the field values on ListApplicationsRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *ListApplicationsRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// ListApplicationsRequestValidationError is the validation error returned by
-// ListApplicationsRequest.Validate if the designated constraints aren't met.
-type ListApplicationsRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ListApplicationsRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ListApplicationsRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ListApplicationsRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ListApplicationsRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ListApplicationsRequestValidationError) ErrorName() string {
-	return "ListApplicationsRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ListApplicationsRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListApplicationsRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ListApplicationsRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ListApplicationsRequestValidationError{}
-
-// Validate checks the field values on ListApplicationsResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *ListApplicationsResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	for idx, item := range m.GetApplications() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ListApplicationsResponseValidationError{
-					field:  fmt.Sprintf("Applications[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ListApplicationsResponseValidationError is the validation error returned by
-// ListApplicationsResponse.Validate if the designated constraints aren't met.
-type ListApplicationsResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ListApplicationsResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ListApplicationsResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ListApplicationsResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ListApplicationsResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ListApplicationsResponseValidationError) ErrorName() string {
-	return "ListApplicationsResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ListApplicationsResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListApplicationsResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ListApplicationsResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ListApplicationsResponseValidationError{}
