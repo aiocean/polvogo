@@ -40,8 +40,6 @@ func (m *Package) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Uid
-
 	if utf8.RuneCountInString(m.GetName()) < 1 {
 		return PackageValidationError{
 			field:  "Name",
@@ -177,8 +175,6 @@ func (m *Version) Validate() error {
 	if m == nil {
 		return nil
 	}
-
-	// no validation rules for Uid
 
 	if m.GetName() != "" {
 
