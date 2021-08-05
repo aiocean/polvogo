@@ -44,7 +44,7 @@ func (m *GetManifestUrlRequest) Validate() error {
 	if !_GetManifestUrlRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return GetManifestUrlRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -107,7 +107,7 @@ var _ interface {
 	ErrorName() string
 } = GetManifestUrlRequestValidationError{}
 
-var _GetManifestUrlRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
+var _GetManifestUrlRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on GetManifestUrlResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -189,7 +189,7 @@ func (m *DeletePackageRequest) Validate() error {
 	if !_DeletePackageRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return DeletePackageRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+$\"",
 		}
 	}
 
@@ -252,7 +252,7 @@ var _ interface {
 	ErrorName() string
 } = DeletePackageRequestValidationError{}
 
-var _DeletePackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
+var _DeletePackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
 
 // Validate checks the field values on DeletePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -483,7 +483,7 @@ func (m *GetPackageRequest) Validate() error {
 	if !_GetPackageRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return GetPackageRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+$\"",
 		}
 	}
 
@@ -546,7 +546,7 @@ var _ interface {
 	ErrorName() string
 } = GetPackageRequestValidationError{}
 
-var _GetPackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
+var _GetPackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
 
 // Validate checks the field values on GetPackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -790,7 +790,7 @@ func (m *ListVersionsRequest) Validate() error {
 	if !_ListVersionsRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return ListVersionsRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+$\"",
 		}
 	}
 
@@ -853,7 +853,7 @@ var _ interface {
 	ErrorName() string
 } = ListVersionsRequestValidationError{}
 
-var _ListVersionsRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
+var _ListVersionsRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
 
 // Validate checks the field values on ListVersionsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -948,7 +948,7 @@ func (m *GetVersionRequest) Validate() error {
 	if !_GetVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return GetVersionRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -1011,7 +1011,7 @@ var _ interface {
 	ErrorName() string
 } = GetVersionRequestValidationError{}
 
-var _GetVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
+var _GetVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on GetVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1101,7 +1101,7 @@ func (m *CreateVersionRequest) Validate() error {
 	if !_CreateVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return CreateVersionRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+$\"",
 		}
 	}
 
@@ -1174,7 +1174,7 @@ var _ interface {
 	ErrorName() string
 } = CreateVersionRequestValidationError{}
 
-var _CreateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
+var _CreateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
 
 // Validate checks the field values on CreateVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1298,7 +1298,7 @@ func (m *UpdatePackageRequest) Validate() error {
 	if !_UpdatePackageRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return UpdatePackageRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+$\"",
 		}
 	}
 
@@ -1361,7 +1361,7 @@ var _ interface {
 	ErrorName() string
 } = UpdatePackageRequestValidationError{}
 
-var _UpdatePackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+$")
+var _UpdatePackageRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
 
 // Validate checks the field values on UpdatePackageResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1451,7 +1451,7 @@ func (m *UpdateVersionRequest) Validate() error {
 	if !_UpdateVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return UpdateVersionRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -1548,7 +1548,7 @@ var _ interface {
 	ErrorName() string
 } = UpdateVersionRequestValidationError{}
 
-var _UpdateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
+var _UpdateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1561,7 +1561,7 @@ func (m *DeleteVersionRequest) Validate() error {
 	if !_DeleteVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
 		return DeleteVersionRequestValidationError{
 			field:  "Orn",
-			reason: "value does not match regex pattern \"(?m)^/packages/[^/]+/versions/[^/]+$\"",
+			reason: "value does not match regex pattern \"(?m)^packages/[^/]+/versions/[^/]+$\"",
 		}
 	}
 
@@ -1624,7 +1624,7 @@ var _ interface {
 	ErrorName() string
 } = DeleteVersionRequestValidationError{}
 
-var _DeleteVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^/packages/[^/]+/versions/[^/]+$")
+var _DeleteVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+/versions/[^/]+$")
 
 // Validate checks the field values on DeleteVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
