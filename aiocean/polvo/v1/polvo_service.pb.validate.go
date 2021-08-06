@@ -1278,17 +1278,17 @@ func (m *UpdatePackageRequest) Validate() error {
 		}
 	}
 
-	if m.GetUpdateMask() == nil {
+	if m.GetFieldMask() == nil {
 		return UpdatePackageRequestValidationError{
-			field:  "UpdateMask",
+			field:  "FieldMask",
 			reason: "value is required",
 		}
 	}
 
-	if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return UpdatePackageRequestValidationError{
-				field:  "UpdateMask",
+				field:  "FieldMask",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1472,17 +1472,17 @@ func (m *UpdateVersionRequest) Validate() error {
 		}
 	}
 
-	if m.GetUpdateMask() == nil {
+	if m.GetFieldMask() == nil {
 		return UpdateVersionRequestValidationError{
-			field:  "UpdateMask",
+			field:  "FieldMask",
 			reason: "value is required",
 		}
 	}
 
-	if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return UpdateVersionRequestValidationError{
-				field:  "UpdateMask",
+				field:  "FieldMask",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
