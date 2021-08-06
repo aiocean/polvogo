@@ -1098,9 +1098,9 @@ func (m *CreateVersionRequest) Validate() error {
 		return nil
 	}
 
-	if !_CreateVersionRequest_Orn_Pattern.MatchString(m.GetOrn()) {
+	if !_CreateVersionRequest_PackageOrn_Pattern.MatchString(m.GetPackageOrn()) {
 		return CreateVersionRequestValidationError{
-			field:  "Orn",
+			field:  "PackageOrn",
 			reason: "value does not match regex pattern \"(?m)^packages/[^/]+$\"",
 		}
 	}
@@ -1174,7 +1174,7 @@ var _ interface {
 	ErrorName() string
 } = CreateVersionRequestValidationError{}
 
-var _CreateVersionRequest_Orn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
+var _CreateVersionRequest_PackageOrn_Pattern = regexp.MustCompile("(?m)^packages/[^/]+$")
 
 // Validate checks the field values on CreateVersionResponse with the rules
 // defined in the proto definition for this message. If any rules are
